@@ -1,40 +1,82 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anwlito Web</title>
-
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 body{
-    overflow:hidden;
-    background:black;
+  overflow:hidden;
+  font-family: Arial, sans-serif;
 }
 
-/* 🌌 Fondo */
+/* 🌅 FONDO ESTILO TU IMAGEN */
 #fondo{
-    position:fixed;
-    width:100vw;
-    height:100vh;
-    object-fit:cover;
-    z-index:0;
+  position:fixed;
+  width:100vw;
+  height:100vh;
+  object-fit:cover;
+  z-index:0;
 }
 
-/* 👤 Icono */
+/* 🧭 BARRA SUPERIOR */
+.topbar{
+  position:absolute;
+  top:10px;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:80px;
+  z-index:5;
+  font-weight:bold;
+  color:black;
+  font-size:22px;
+  text-shadow:2px 2px white;
+}
+
+/* 🔗 ICONOS ARRIBA */
+.iconbar{
+  position:absolute;
+  top:50px;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:80px;
+  z-index:5;
+}
+
+.iconbar img{
+  width:70px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.iconbar img:hover{
+  transform:scale(1.2);
+}
+
+/* 👤 PERSONAJE DERECHA */
 #icono{
-    position:absolute;
-    width:35vw;
-    max-width:500px;
-    min-width:200px;
-    left:50%;
-    top:45%;
-    transform:translate(-50%,-50%);
+  position:absolute;
+  right:0;
+  top:0;
+  height:100vh;
+  width:auto;
+  z-index:2;
+}
+
+/* ✍️ NAME (opcional arriba centro) */
+#nombres{
+  position:absolute;
+  top:35%;
+  left:50%;
+  transform:translateX(-50%);
+  width:40vw;
+  z-index:3;
+}
+</style>    transform:translate(-50%,-50%);
     z-index:2;
 }
 
