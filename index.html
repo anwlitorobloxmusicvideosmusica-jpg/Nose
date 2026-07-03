@@ -27,7 +27,7 @@ body{
   z-index:0;
 }
 
-/* 🌈 EFECTO SHADER SUAVE */
+/* 🌈 SHADER SUAVE */
 body::before{
   content:"";
   position:fixed;
@@ -40,18 +40,18 @@ body::before{
   z-index:1;
 }
 
-/* ✍️ NAMES */
+/* ✍️ NAMES (ARREGLADO GRANDE) */
 #names{
   position:absolute;
-  top:10%;
+  top:8%;
   left:50%;
   transform:translateX(-50%);
-  width:45vw;
-  max-width:700px;
+  width:55vw;   /* 👈 ESTO LO HACE GRANDE */
+  max-width:800px;
   z-index:3;
 }
 
-/* 👤 ICONO */
+/* 👤 PERSONAJE */
 #icono{
   position:absolute;
   right:0;
@@ -60,7 +60,7 @@ body::before{
   z-index:2;
 }
 
-/* 🔗 BOTONES (MENÚ PRINCIPAL GRANDE) */
+/* 🔗 BOTONES */
 .botones{
   position:absolute;
   top:0;
@@ -78,7 +78,7 @@ body::before{
 
 /* 🎮 ICONOS GRANDES */
 .botones img{
-  height:22vh;
+  height:20vh;
   width:auto;
 
   cursor:pointer;
@@ -87,9 +87,8 @@ body::before{
   filter: drop-shadow(0 0 10px rgba(0,255,200,0.5));
 }
 
-/* ✨ hover estilo juego */
 .botones img:hover{
-  transform:scale(1.25) rotate(-2deg);
+  transform:scale(1.25);
   filter: drop-shadow(0 0 25px rgba(0,255,255,0.9));
 }
 
@@ -119,19 +118,19 @@ window.addEventListener("click", () => {
 <!-- 👤 PERSONAJE -->
 <img src="anwlitoicon.png" id="icono">
 
-<!-- 🔗 BOTONES -->
+<!-- 🔗 BOTONES (NUEVOS NOMBRES) -->
 <div class="botones">
 
   <a href="https://gamebanana.com/members/4193340" target="_blank">
-    <img src="gamebanana.png">
+    <img src="gamebanana2.png">
   </a>
 
   <a href="https://anwlitoc.carrd.co/" target="_blank">
-    <img src="yt.png">
+    <img src="yt2.png">
   </a>
 
   <a href="https://www.tiktok.com/@eliot_friend_anwlito?lang=es-419" target="_blank">
-    <img src="tiktok.png">
+    <img src="tiktok2.png">
   </a>
 
 </div>
