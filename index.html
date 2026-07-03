@@ -7,7 +7,6 @@
 
 <style>
 
-/* 🎨 FUENTE */
 @font-face {
   font-family: "AnwFont";
   src: url("fuente.ttf");
@@ -69,23 +68,19 @@ body{
 
 .botones img{
   height:20vh;
-  width:auto;
   cursor:pointer;
-
-  transition:0.2s;
+  transition:0.25s;
   filter: drop-shadow(0 0 10px rgba(0,255,200,0.5));
 }
 
 .botones img:hover{
   transform:scale(1.25);
-  filter: drop-shadow(0 0 25px rgba(0,255,255,0.9));
 }
 
 /* 🎮 START SCREEN */
 #startScreen{
   position:fixed;
-  width:100%;
-  height:100%;
+  inset:0;
   background:black;
   z-index:10;
   display:flex;
@@ -103,9 +98,8 @@ body{
 
 .startText{
   color:red;
-  font-size:2.5vh;
   font-family:"AnwFont";
-  letter-spacing:3px;
+  font-size:2.5vh;
   animation:blink 1.2s infinite;
   text-align:center;
 }
@@ -116,39 +110,36 @@ body{
   100%{opacity:1;}
 }
 
-/* 🌈 SHADER ANIMADO */
+/* 🌈 SHADER */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  z-index:1;
-  pointer-events:none;
-
   background:
     radial-gradient(circle at 30% 30%, rgba(0,255,200,0.12), transparent 60%),
     radial-gradient(circle at 70% 70%, rgba(255,0,150,0.08), transparent 60%);
-
   animation:shaderMove 6s infinite alternate;
   mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:1;
 }
 
 @keyframes shaderMove{
-  0%{ transform:scale(1) translate(0px,0px); }
-  100%{ transform:scale(1.1) translate(10px,-10px); }
+  0%{transform:scale(1);}
+  100%{transform:scale(1.1) translate(10px,-10px);}
 }
 
-/* 💥 GLITCH SUAVE */
+/* 💥 GLITCH */
 .glitch{
   animation:glitch 0.3s infinite;
 }
 
 @keyframes glitch{
-  0%{ transform:translate(0,0); }
-  20%{ transform:translate(2px,-2px); }
-  40%{ transform:translate(-2px,2px); }
-  60%{ transform:translate(2px,2px); }
-  80%{ transform:translate(-2px,-1px); }
-  100%{ transform:translate(0,0); }
+  0%{transform:translate(0,0);}
+  25%{transform:translate(2px,-2px);}
+  50%{transform:translate(-2px,2px);}
+  75%{transform:translate(2px,2px);}
+  100%{transform:translate(0,0);}
 }
 
 /* ✨ PARTICULAS */
@@ -158,15 +149,52 @@ body::before{
   height:4px;
   background:white;
   border-radius:50%;
-  opacity:0.6;
   z-index:1;
-  pointer-events:none;
   animation:float 6s linear infinite;
 }
 
 @keyframes float{
-  from{ transform:translateY(100vh); opacity:0; }
-  to{ transform:translateY(-10vh); opacity:1; }
+  from{transform:translateY(100vh);opacity:0;}
+  to{transform:translateY(-10vh);opacity:1;}
+}
+
+/* 📱 ORIENTACIÓN BLOQUEO */
+#rotateScreen{
+  position:fixed;
+  inset:0;
+  background:black;
+  color:white;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.rotateBox{
+  text-align:center;
+  font-size:3vh;
+  animation:floatPhone 1.2s infinite;
+  font-family:"AnwFont";
+}
+
+.rotateBox::before{
+  content:"📱";
+  font-size:8vh;
+  display:block;
+  animation:spinPhone 1.5s infinite;
+  margin-bottom:20px;
+}
+
+@keyframes spinPhone{
+  0%{transform:rotate(0deg);}
+  50%{transform:rotate(90deg);}
+  100%{transform:rotate(0deg);}
+}
+
+@keyframes floatPhone{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+  100%{transform:translateY(0);}
 }
 
 </style>
@@ -174,6 +202,13 @@ body::before{
 </head>
 
 <body>
+
+<!-- 📱 ORIENTACIÓN -->
+<div id="rotateScreen">
+  <div class="rotateBox">
+    GIRA TU DISPOSITIVO
+  </div>
+</div>
 
 <!-- 🎵 MUSICA -->
 <audio id="bgm" loop>
@@ -197,30 +232,17 @@ body::before{
 <!-- 🔗 BOTONES -->
 <div class="botones">
 
-  <a href="https://gamebanana.com/members/4193340" target="_blank">
-    <img src="gamebanana2.png">
-  </a>
-
-  <a href="https://anwlitoc.carrd.co/" target="_blank">
-    <img src="yt2.png">
-  </a>
-
-  <a href="https://www.tiktok.com/@eliot_friend_anwlito?lang=es-419" target="_blank">
-    <img src="tiktok2.png">
-  </a>
-
-  <a href="https://x.com/SoyAnwlitoyt" target="_blank">
-    <img src="Twitter.png">
-  </a>
-
-  <a href="https://discord.gg/YBnPcpTxqF" target="_blank">
-    <img src="Discord.png">
-  </a>
+  <a href="https://gamebanana.com/members/4193340"><img src="gamebanana2.png"></a>
+  <a href="https://anwlitoc.carrd.co/"><img src="yt2.png"></a>
+  <a href="https://www.tiktok.com/@eliot_friend_anwlito"><img src="tiktok2.png"></a>
+  <a href="https://x.com/SoyAnwlitoyt"><img src="Twitter.png"></a>
+  <a href="https://discord.gg/YBnPcpTxqF"><img src="Discord.png"></a>
 
 </div>
 
 <script>
-/* 🎮 START SYSTEM */
+
+/* 🎮 START */
 document.addEventListener("DOMContentLoaded", () => {
 
   const start = document.getElementById("startScreen");
@@ -241,16 +263,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-/* ✨ PARTÍCULAS */
+/* ✨ PARTICULAS */
 function startParticles(){
   for(let i=0;i<25;i++){
     let p = document.createElement("div");
     p.className = "particle";
     p.style.left = Math.random()*100 + "vw";
-    p.style.animationDuration = (3+Math.random()*5) + "s";
+    p.style.animationDuration = (3+Math.random()*5)+"s";
     document.body.appendChild(p);
   }
 }
+
+/* 📱 ORIENTACIÓN */
+function checkOrientation(){
+  const r = document.getElementById("rotateScreen");
+
+  if(window.innerHeight > window.innerWidth){
+    r.style.display = "flex";
+  } else {
+    r.style.display = "none";
+  }
+}
+
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("load", checkOrientation);
+
 </script>
 
 </body>
