@@ -147,4 +147,117 @@ body::after{
 </div>
 
 </body>
+</html>    transform:translate(-50%,-50%);
+    z-index:2;
+}
+
+/* ✍️ Names */
+#nombres{
+    position:absolute;
+    width:45vw;
+    max-width:700px;
+    min-width:250px;
+    left:50%;
+    top:18%;
+    transform:translateX(-50%);
+    z-index:3;
+}
+
+/* 🔗 Botones */
+.botones{
+    position:absolute;
+    bottom:5vh;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:2vw;
+    z-index:4;
+}
+
+.botones img{
+    width:8vw;
+    max-width:90px;
+    min-width:50px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.botones img:hover{
+    transform:scale(1.2);
+}
+
+/* 🌈 SHADER / EFECTO VISUAL */
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: radial-gradient(circle at 50% 50%, rgba(0,255,200,0.08), transparent 60%),
+                linear-gradient(120deg, rgba(255,0,150,0.05), rgba(0,0,0,0));
+    z-index:1;
+    pointer-events:none;
+    mix-blend-mode:screen;
+    animation:glowMove 6s infinite alternate;
+}
+
+@keyframes glowMove{
+    0%{
+        filter:hue-rotate(0deg) contrast(1.1);
+        transform:scale(1);
+    }
+    100%{
+        filter:hue-rotate(25deg) contrast(1.3);
+        transform:scale(1.02);
+    }
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.02),
+        rgba(255,255,255,0.02) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    z-index:2;
+    pointer-events:none;
+    opacity:0.25;
+}
+</style>
+
+</head>
+
+<body>
+
+<img src="fondo.png" id="fondo">
+
+<img src="anwlitoicon.png" id="icono">
+
+<img src="names.png" id="nombres">
+
+<div class="botones">
+
+<a href="https://gamebanana.com/members/4193340" target="_blank">
+<img src="gamebanana.png">
+</a>
+
+<a href="https://anwlitoc.carrd.co/" target="_blank">
+<img src="yt.png">
+</a>
+
+<a href="https://www.tiktok.com/@eliot_friend_anwlito?lang=es-419" target="_blank">
+<img src="tiktok.png">
+</a>
+
+</div>
+
+</body>
 </html>
