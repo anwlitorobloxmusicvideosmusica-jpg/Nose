@@ -6,6 +6,13 @@
 <title>Anwlito Web</title>
 
 <style>
+
+/* 🎨 FUENTE PERSONALIZADA */
+@font-face {
+  font-family: "AnwFont";
+  src: url("fuente.ttf");
+}
+
 *{
   margin:0;
   padding:0;
@@ -40,7 +47,7 @@ body{
   transition:1s;
 }
 
-/* 🔗 REDES */
+/* 🔗 BOTONES */
 .botones{
   position:absolute;
   top:0;
@@ -51,24 +58,28 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:8vw;
+  gap:6vw;
 
   z-index:5;
 
   opacity:0;
-  transform:scale(0.8);
+  transform:scale(0.9);
   transition:1s;
 }
 
+/* 🎮 ICONOS */
 .botones img{
   height:20vh;
+  width:auto;
+
   cursor:pointer;
-  transition:0.25s;
+  transition:0.25s ease;
+
   filter: drop-shadow(0 0 10px rgba(0,255,200,0.5));
 }
 
 .botones img:hover{
-  transform:scale(1.2);
+  transform:scale(1.25);
   filter: drop-shadow(0 0 25px rgba(0,255,255,0.9));
 }
 
@@ -78,30 +89,53 @@ body{
   width:100%;
   height:100%;
   background:black;
+
   display:flex;
   justify-content:center;
   align-items:center;
+
   z-index:10;
   cursor:pointer;
 }
 
-#startScreen img{
-  width:40vw;
-  max-width:600px;
-  animation:pulse 1.5s infinite;
+.startBox{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
 }
 
-@keyframes pulse{
-  0%{ transform:scale(1); opacity:1; }
-  50%{ transform:scale(1.05); opacity:0.7; }
-  100%{ transform:scale(1); opacity:1; }
+.startText{
+  color:red;
+  font-size:2.5vh;
+  letter-spacing:3px;
+
+  font-family:"AnwFont";
+
+  animation:blink 1.2s infinite;
+  text-align:center;
 }
 
-/* ✨ ANIMACIÓN ENTRADA */
-.show{
-  opacity:1 !important;
-  transform:scale(1) !important;
+/* 🔴 blink efecto */
+@keyframes blink{
+  0%{ opacity:1; }
+  50%{ opacity:0.3; }
+  100%{ opacity:1; }
 }
+
+/* 🌈 SHADER */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at center, rgba(0,255,200,0.10), transparent 60%),
+    linear-gradient(120deg, rgba(255,0,150,0.05), rgba(0,0,0,0));
+  mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:1;
+}
+
 </style>
 
 </head>
@@ -115,7 +149,10 @@ body{
 
 <!-- 🎮 START SCREEN -->
 <div id="startScreen">
-  <img src="start.png">
+  <div class="startBox">
+    <img src="start.png">
+    <p class="startText">PRESIONA LA PANTALLA PARA EMPEZAR</p>
+  </div>
 </div>
 
 <!-- 🌅 FONDO -->
@@ -139,25 +176,32 @@ body{
     <img src="tiktok2.png">
   </a>
 
+  <a href="https://x.com/SoyAnwlitoyt" target="_blank">
+    <img src="twitter.png">
+  </a>
+
+  <a href="https://discord.gg/YBnPcpTxqF" target="_blank">
+    <img src="discord.png">
+  </a>
+
 </div>
 
 <script>
-const start = document.getElementById("startScreen");
-const music = document.getElementById("bgm");
+document.addEventListener("DOMContentLoaded", () => {
 
-start.addEventListener("click", () => {
+  const start = document.getElementById("startScreen");
+  const music = document.getElementById("bgm");
 
-  // ocultar start
-  start.style.opacity = "0";
-  start.style.pointerEvents = "none";
+  start.addEventListener("click", () => {
 
-  // activar música
-  music.play();
+    start.style.display = "none";
 
-  // mostrar todo con animación
-  document.getElementById("fondo").classList.add("show");
-  document.getElementById("icono").classList.add("show");
-  document.querySelector(".botones").classList.add("show");
+    music.play().catch(()=>{});
+
+    document.getElementById("fondo").style.opacity = "1";
+    document.getElementById("icono").style.opacity = "1";
+    document.querySelector(".botones").style.opacity = "1";
+  });
 
 });
 </script>
