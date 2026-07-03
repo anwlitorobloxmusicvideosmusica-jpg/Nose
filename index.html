@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anwlito</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+#fondo{
+    position:fixed;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:0;
+}
+
+#icono{
+    position:absolute;
+    width:260px;
+    left:50%;
+    top:42%;
+    transform:translate(-50%,-50%);
+    z-index:1;
+}
+
+#nombres{
+    position:absolute;
+    width:420px;
+    left:50%;
+    top:18%;
+    transform:translateX(-50%);
+    z-index:2;
+}
+
+.botones{
+    position:absolute;
+    bottom:40px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:25px;
+    z-index:3;
+}
+
+.botones img{
+    width:75px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.botones img:hover{
+    transform:scale(1.15);
+}
+</style>
+</head>
+
+<body>
+
+<img src="fondo.png" id="fondo">
+
+<img src="anwlitoicon.png" id="icono">
+
+<img src="nombres.png" id="nombres">
+
+<div class="botones">
+
+<a href="https://gamebanana.com/members/4193340" target="_blank">
+<img src="gamebanana.png">
+</a>
+
+<a href="https://anwlitoc.carrd.co/" target="_blank">
+<img src="yt.png">
+</a>
+
+<a href="https://www.tiktok.com/@eliot_friend_anwlito?lang=es-419" target="_blank">
+<img src="tiktok.png">
+</a>
+
+</div>
+
+</body>
+</html>
