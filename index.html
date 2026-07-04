@@ -146,7 +146,7 @@ body::before{
 <!-- 🔗 BOTONES -->
 <div class="botones">
 
-  <!-- 📺 PLAYLIST -->
+  <!-- 📺 BOTÓN DIRECTO -->
   <div class="videoBtn" onclick="openPlaylist()">📺</div>
 
   <a href="https://anwlitoc.carrd.co/" target="_blank">
@@ -181,15 +181,12 @@ document.getElementById("startScreen").onclick = () => {
   document.getElementById("bgm").play().catch(()=>{});
 };
 
-/* 📺 PLAYLIST OPEN */
+/* 📺 FIX REAL: ABRE EN MISMA PESTAÑA */
 function openPlaylist(){
-  window.open(
-    "https://youtube.com/playlist?list=PLBb0DKDUmZDg&si=EIDTzMlS_kKOpae6",
-    "_blank"
-  );
+  location.href = "https://youtube.com/playlist?list=PLBb0DKDUmZDg&si=EIDTzMlS_kKOpae6";
 }
 
 </script>
 
 </body>
-</html>
+      </html>
