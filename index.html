@@ -35,7 +35,7 @@ body{
   transition:1s;
 }
 
-/* 👤 PERSONAJE */
+/* 👤 ICONO */
 #icono{
   position:absolute;
   right:0;
@@ -46,7 +46,7 @@ body{
   transition:1s;
 }
 
-/* 🔗 BOTONES PRINCIPALES */
+/* 🔗 REDES */
 .botones{
   position:absolute;
   top:0;
@@ -57,7 +57,9 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:6vw;
+  gap:4vw;
+
+  flex-wrap:wrap;
 
   z-index:5;
 
@@ -66,16 +68,16 @@ body{
 }
 
 .botones img{
-  height:20vh;
+  height:18vh;
   cursor:pointer;
-  transition:0.25s;
+  transition:0.2s;
 }
 
 .botones img:hover{
   transform:scale(1.2);
 }
 
-/* 🎮 START SCREEN */
+/* 🎮 START */
 #startScreen{
   position:fixed;
   inset:0;
@@ -92,7 +94,6 @@ body{
   font-family:"AnwFont";
   font-size:2.5vh;
   animation:blink 1.2s infinite;
-  text-align:center;
 }
 
 @keyframes blink{
@@ -175,25 +176,39 @@ body::before{
 <!-- 🌅 FONDO -->
 <img id="fondo" src="fondo.png">
 
-<!-- 👤 PERSONAJE -->
+<!-- 👤 ICONO -->
 <img id="icono" src="anwlitoicon.png">
 
-<!-- 🔗 MENÚ -->
+<!-- 🔗 REDES + BOTÓN -->
 <div class="botones">
 
   <img src="gamebanana2.png" onclick="openVideos()">
-  <img src="yt2.png">
-  <img src="tiktok2.png">
+
+  <a href="https://anwlitoc.carrd.co/" target="_blank">
+    <img src="yt2.png">
+  </a>
+
+  <a href="https://www.tiktok.com/@eliot_friend_anwlito" target="_blank">
+    <img src="tiktok2.png">
+  </a>
+
+  <a href="https://x.com/SoyAnwlitoyt" target="_blank">
+    <img src="Twitter.png">
+  </a>
+
+  <a href="https://discord.gg/YBnPcpTxqF" target="_blank">
+    <img src="Discord.png">
+  </a>
 
 </div>
 
-<!-- 🎬 SECCIÓN VIDEOS (NETFLIX) -->
-<div id="videosPage" style="display:none;"></div>
+<!-- 🎬 NETFLIX -->
+<div id="videosPage" style="display:none; color:white; text-align:center; padding:20px;"></div>
+
 <script>
 
-/* 🎮 START SYSTEM */
-document.getElementById("startScreen").addEventListener("click", () => {
-
+/* 🎮 START */
+document.getElementById("startScreen").onclick = () => {
   document.getElementById("startScreen").style.display = "none";
 
   document.getElementById("fondo").style.opacity = "1";
@@ -203,19 +218,17 @@ document.getElementById("startScreen").addEventListener("click", () => {
   document.getElementById("bgm").play().catch(()=>{});
 
   startParticles();
-});
+};
 
 /* 📱 ORIENTACIÓN */
 function checkOrientation(){
-  const r = document.getElementById("rotateScreen");
-
+  let r = document.getElementById("rotateScreen");
   if(window.innerHeight > window.innerWidth){
     r.style.display = "flex";
   }else{
     r.style.display = "none";
   }
 }
-
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("load", checkOrientation);
 
@@ -223,85 +236,74 @@ window.addEventListener("load", checkOrientation);
 function startParticles(){
   for(let i=0;i<20;i++){
     let p = document.createElement("div");
-    p.className = "particle";
-    p.style.left = Math.random()*100 + "vw";
-    p.style.animationDuration = (3+Math.random()*5)+"s";
+    p.style.position="fixed";
+    p.style.width="4px";
+    p.style.height="4px";
+    p.style.background="white";
+    p.style.borderRadius="50%";
+    p.style.left=Math.random()*100+"vw";
+    p.style.top="100vh";
+    p.style.zIndex=1;
+    p.style.animation="float 6s linear infinite";
     document.body.appendChild(p);
   }
 }
 
-/* 🎬 SISTEMA NETFLIX DE VIDEOS */
+/* 🎬 VIDEOS NETFLIX */
 const videos = {
-  principal: "",
-  among: "",
-  roblox: "",
-  tiktok: ""
+  principal:"https://youtu.be/GlZlj9FkEw4?si=I7KTc7fa40x6ISt3",
+  among:"https://youtube.com/shorts/M_mOYKX8VCY?si=8RievzaeKpu-VtWE",
+  roblox:"https://youtu.be/CnXjCfHLHCA?si=uejZHm8gGfA1WGu0",
+  tiktok:""
 };
 
-/* 🔥 ABRIR PÁGINA VIDEOS */
 function openVideos(){
-  document.querySelector(".botones").style.display = "none";
+  document.querySelector(".botones").style.display="none";
 
   let page = document.getElementById("videosPage");
-  page.style.display = "block";
+  page.style.display="block";
 
   page.innerHTML = `
-    <div style="color:white;text-align:center;padding:20px;font-family:Arial">
-
-      <h1 style="color:cyan;">MIS VIDEOS</h1>
-
-      ${createVideo("CANAL PRINCIPAL", videos.principal, "red")}
-      ${createVideo("CANAL AMONG US", videos.among, "yellow")}
-      ${createVideo("ROBLOX", videos.roblox, "lime")}
-      ${createVideo("TIKTOK", videos.tiktok, "violet")}
-
-      <br><br>
-      <button onclick="closeVideos()" style="padding:10px 20px;font-size:18px;">
-        VOLVER
-      </button>
-
-    </div>
+    <h1 style="color:cyan;">MIS VIDEOS</h1>
+    ${make("CANAL PRINCIPAL","red",videos.principal)}
+    ${make("CANAL AMONG US","yellow",videos.among)}
+    ${make("ROBLOX","lime",videos.roblox)}
+    ${make("TIKTOK","violet",videos.tiktok)}
+    <br><br>
+    <button onclick="closeVideos()">VOLVER</button>
   `;
 }
 
-/* 🎬 CREAR BLOQUE DE VIDEO */
-function createVideo(title, url, color){
+function make(title,color,url){
 
   if(!url){
-    return `<p style="color:${color};font-size:18px;">
-      ${title}: <br>
-      ❌ No hay vídeos en los últimos 8 meses
-    </p><br>`;
+    return `<p style="color:${color}">${title}<br>❌ No hay vídeos en los últimos 8 meses</p>`;
   }
 
-  const id = getYouTubeID(url);
-  const thumb = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+  let id = getID(url);
+  let img = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 
   return `
     <div style="margin:20px;">
       <h2 style="color:${color}">${title}</h2>
       <a href="${url}" target="_blank">
-        <img src="${thumb}" style="width:60%;border-radius:10px;">
+        <img src="${img}" style="width:60%;border-radius:10px;">
       </a>
     </div>
   `;
 }
 
-/* 🔗 SACAR ID DE YOUTUBE */
-function getYouTubeID(url){
-  let match = url.match(/v=([^&]+)/);
-  if(match) return match[1];
-
-  match = url.match(/youtu\.be\/([^?]+)/);
-  if(match) return match[1];
-
+function getID(url){
+  let m = url.match(/v=([^&]+)/);
+  if(m) return m[1];
+  m = url.match(/youtu\.be\/([^?]+)/);
+  if(m) return m[1];
   return "";
 }
 
-/* 🔙 CERRAR */
 function closeVideos(){
-  document.getElementById("videosPage").style.display = "none";
-  document.querySelector(".botones").style.display = "flex";
+  document.getElementById("videosPage").style.display="none";
+  document.querySelector(".botones").style.display="flex";
 }
 
 </script>
