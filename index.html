@@ -7,7 +7,7 @@
 
 <style>
 
-@font-face {
+@font-face{
   font-family:"AnwFont";
   src:url("fuente.ttf");
 }
@@ -30,7 +30,6 @@ body{
   width:100vw;
   height:100vh;
   object-fit:cover;
-  z-index:0;
   opacity:0;
   transition:1s;
 }
@@ -41,7 +40,6 @@ body{
   right:0;
   bottom:0;
   height:90vh;
-  z-index:2;
   opacity:0;
   transition:1s;
 }
@@ -49,25 +47,18 @@ body{
 /* 🔗 BOTONES */
 .botones{
   position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100vh;
-
+  inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:4vw;
+  gap:40px;
   flex-wrap:wrap;
-
-  z-index:5;
-
   opacity:0;
   transition:1s;
 }
 
 .botones img{
-  height:18vh;
+  height:16vh;
   cursor:pointer;
   transition:0.2s;
 }
@@ -78,10 +69,9 @@ body{
 
 /* 📺 BOTÓN VIDEO */
 .videoBtn{
-  font-size:60px;
+  font-size:70px;
   cursor:pointer;
-  color:white;
-  filter: drop-shadow(0 0 10px cyan);
+  filter:drop-shadow(0 0 10px cyan);
   transition:0.2s;
 }
 
@@ -94,11 +84,11 @@ body{
   position:fixed;
   inset:0;
   background:black;
-  z-index:10;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  z-index:10;
   cursor:pointer;
 }
 
@@ -110,7 +100,6 @@ body{
 .startText{
   color:red;
   font-family:"AnwFont";
-  font-size:2.5vh;
   animation:blink 1.2s infinite;
 }
 
@@ -120,56 +109,22 @@ body{
   100%{opacity:1;}
 }
 
-/* 📱 ORIENTACIÓN */
-#rotateScreen{
-  position:fixed;
-  inset:0;
-  background:black;
-  color:white;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-
-/* ✨ PARTÍCULAS */
-.particle{
-  position:fixed;
-  width:4px;
-  height:4px;
-  background:white;
-  border-radius:50%;
-  animation:fall linear infinite;
-  z-index:1;
-}
-
-@keyframes fall{
-  from{transform:translateY(-10vh); opacity:1;}
-  to{transform:translateY(110vh); opacity:0;}
-}
-
 /* 🌌 SHADER */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:
-    radial-gradient(circle at 30% 30%, rgba(0,255,200,0.12), transparent 60%),
-    radial-gradient(circle at 70% 70%, rgba(255,0,150,0.08), transparent 60%);
+    radial-gradient(circle at 30% 30%, rgba(0,255,200,0.15), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(255,0,150,0.10), transparent 60%);
   mix-blend-mode:screen;
   pointer-events:none;
-  z-index:1;
 }
 
 </style>
 </head>
 
 <body>
-
-<!-- 📱 ORIENTACIÓN -->
-<div id="rotateScreen">
-  <div>GIRA TU DISPOSITIVO 📱</div>
-</div>
 
 <!-- 🎮 START -->
 <div id="startScreen">
@@ -191,7 +146,8 @@ body::before{
 <!-- 🔗 BOTONES -->
 <div class="botones">
 
-  <div class="videoBtn" onclick="openVideos()">📺</div>
+  <!-- 📺 PLAYLIST -->
+  <div class="videoBtn" onclick="openPlaylist()">📺</div>
 
   <a href="https://anwlitoc.carrd.co/" target="_blank">
     <img src="yt2.png">
@@ -211,9 +167,6 @@ body::before{
 
 </div>
 
-<!-- 🎬 VIDEOS -->
-<div id="videosPage" style="display:none; color:white; text-align:center; padding:20px;"></div>
-
 <script>
 
 /* 🎮 START */
@@ -226,95 +179,14 @@ document.getElementById("startScreen").onclick = () => {
   document.querySelector(".botones").style.opacity="1";
 
   document.getElementById("bgm").play().catch(()=>{});
-
-  startParticles();
 };
 
-/* 📱 ORIENTACIÓN */
-function checkOrientation(){
-  let r = document.getElementById("rotateScreen");
-  r.style.display = (window.innerHeight > window.innerWidth) ? "flex" : "none";
-}
-window.addEventListener("resize", checkOrientation);
-window.addEventListener("load", checkOrientation);
-
-/* ✨ PARTÍCULAS */
-function startParticles(){
-  for(let i=0;i<30;i++){
-    let p = document.createElement("div");
-    p.className="particle";
-    p.style.left=Math.random()*100+"vw";
-    p.style.animationDuration=(2+Math.random()*4)+"s";
-    document.body.appendChild(p);
-  }
-}
-
-/* 🎬 VIDEOS */
-const videos = {
-  principal:"https://youtu.be/GlZlj9FkEw4?si=d_XXO9nlsh_-P6bP",
-  among:"https://youtube.com/shorts/M_mOYKX8VCY",
-  roblox:"https://youtu.be/CnXjCfHLHCA",
-  tiktok:""
-};
-
-function openVideos(){
-
-  document.querySelector(".botones").style.display="none";
-
-  let page=document.getElementById("videosPage");
-  page.style.display="block";
-
-  page.innerHTML=`
-    <h1 style="color:cyan;">MIS VIDEOS</h1>
-
-    ${make("CANAL PRINCIPAL","red",videos.principal)}
-    ${make("CANAL AMONG US","yellow",videos.among)}
-    ${make("ROBLOX","lime",videos.roblox)}
-    ${make("TIKTOK","violet",videos.tiktok)}
-
-    <br><br>
-    <button onclick="closeVideos()">VOLVER</button>
-  `;
-}
-
-function make(title,color,url){
-
-  if(!url){
-    return `<p style="color:${color}">${title}<br>❌ No hay vídeos en los últimos 8 meses</p>`;
-  }
-
-  let id=getID(url);
-  let img=`https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-
-  return `
-    <div style="margin:20px;">
-      <h2 style="color:${color}">${title}</h2>
-      <a href="${url}" target="_blank">
-        <img src="${img}" style="width:60%;border-radius:10px;">
-      </a>
-    </div>
-  `;
-}
-
-function getID(url){
-
-  let m;
-
-  m=url.match(/v=([^&]+)/);
-  if(m) return m[1];
-
-  m=url.match(/youtu\.be\/([^?]+)/);
-  if(m) return m[1];
-
-  m=url.match(/shorts\/([^?]+)/);
-  if(m) return m[1];
-
-  return "";
-}
-
-function closeVideos(){
-  document.getElementById("videosPage").style.display="none";
-  document.querySelector(".botones").style.display="flex";
+/* 📺 PLAYLIST OPEN */
+function openPlaylist(){
+  window.open(
+    "https://youtube.com/playlist?list=PLBb0DKDUmZDg&si=EIDTzMlS_kKOpae6",
+    "_blank"
+  );
 }
 
 </script>
