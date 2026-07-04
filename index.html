@@ -8,8 +8,8 @@
 <style>
 
 @font-face {
-  font-family: "AnwFont";
-  src: url("fuente.ttf");
+  font-family:"AnwFont";
+  src:url("fuente.ttf");
 }
 
 *{
@@ -21,7 +21,7 @@
 body{
   overflow:hidden;
   background:black;
-  font-family: Arial;
+  font-family:Arial;
 }
 
 /* 🌅 FONDO */
@@ -35,7 +35,7 @@ body{
   transition:1s;
 }
 
-/* 👤 ICONO */
+/* 👤 PERSONAJE */
 #icono{
   position:absolute;
   right:0;
@@ -46,7 +46,7 @@ body{
   transition:1s;
 }
 
-/* 🔗 REDES */
+/* 🔗 BOTONES */
 .botones{
   position:absolute;
   top:0;
@@ -74,6 +74,19 @@ body{
 }
 
 .botones img:hover{
+  transform:scale(1.2);
+}
+
+/* 📺 BOTÓN VIDEO */
+.videoBtn{
+  font-size:60px;
+  cursor:pointer;
+  color:white;
+  filter: drop-shadow(0 0 10px cyan);
+  transition:0.2s;
+}
+
+.videoBtn:hover{
   transform:scale(1.2);
 }
 
@@ -119,7 +132,6 @@ body{
   font-size:8vh;
   display:block;
   animation:spin 1.5s infinite;
-  margin-bottom:20px;
 }
 
 .rotateBox{
@@ -154,6 +166,7 @@ body::before{
 }
 
 </style>
+
 </head>
 
 <body>
@@ -179,10 +192,11 @@ body::before{
 <!-- 👤 ICONO -->
 <img id="icono" src="anwlitoicon.png">
 
-<!-- 🔗 REDES + BOTÓN -->
+<!-- 🔗 BOTONES -->
 <div class="botones">
 
-  <img src="gamebanana2.png" onclick="openVideos()">
+  <!-- 📺 BOTÓN VIDEOS -->
+  <div class="videoBtn" onclick="openVideos()">📺</div>
 
   <a href="https://anwlitoc.carrd.co/" target="_blank">
     <img src="yt2.png">
@@ -202,62 +216,40 @@ body::before{
 
 </div>
 
-<!-- 🎬 NETFLIX -->
+<!-- 🎬 VIDEOS -->
 <div id="videosPage" style="display:none; color:white; text-align:center; padding:20px;"></div>
 
 <script>
 
 /* 🎮 START */
 document.getElementById("startScreen").onclick = () => {
-  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("startScreen").style.display="none";
 
-  document.getElementById("fondo").style.opacity = "1";
-  document.getElementById("icono").style.opacity = "1";
-  document.querySelector(".botones").style.opacity = "1";
+  document.getElementById("fondo").style.opacity="1";
+  document.getElementById("icono").style.opacity="1";
+  document.querySelector(".botones").style.opacity="1";
 
   document.getElementById("bgm").play().catch(()=>{});
-
-  startParticles();
 };
 
 /* 📱 ORIENTACIÓN */
 function checkOrientation(){
   let r = document.getElementById("rotateScreen");
-  if(window.innerHeight > window.innerWidth){
-    r.style.display = "flex";
-  }else{
-    r.style.display = "none";
-  }
+  r.style.display = (window.innerHeight > window.innerWidth) ? "flex" : "none";
 }
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("load", checkOrientation);
 
-/* ✨ PARTÍCULAS */
-function startParticles(){
-  for(let i=0;i<20;i++){
-    let p = document.createElement("div");
-    p.style.position="fixed";
-    p.style.width="4px";
-    p.style.height="4px";
-    p.style.background="white";
-    p.style.borderRadius="50%";
-    p.style.left=Math.random()*100+"vw";
-    p.style.top="100vh";
-    p.style.zIndex=1;
-    p.style.animation="float 6s linear infinite";
-    document.body.appendChild(p);
-  }
-}
-
-/* 🎬 VIDEOS NETFLIX */
+/* 🎬 VIDEOS */
 const videos = {
-  principal:"https://youtu.be/GlZlj9FkEw4?si=I7KTc7fa40x6ISt3",
-  among:"https://youtube.com/shorts/M_mOYKX8VCY?si=8RievzaeKpu-VtWE",
-  roblox:"https://youtu.be/CnXjCfHLHCA?si=uejZHm8gGfA1WGu0",
+  principal:"https://youtu.be/GlZlj9FkEw4?si=ntz8k7dHNb35eW0D",
+  among:"https://youtube.com/shorts/M_mOYKX8VCY",
+  roblox:"https://youtu.be/CnXjCfHLHCA",
   tiktok:""
 };
 
 function openVideos(){
+
   document.querySelector(".botones").style.display="none";
 
   let page = document.getElementById("videosPage");
@@ -265,10 +257,12 @@ function openVideos(){
 
   page.innerHTML = `
     <h1 style="color:cyan;">MIS VIDEOS</h1>
+
     ${make("CANAL PRINCIPAL","red",videos.principal)}
     ${make("CANAL AMONG US","yellow",videos.among)}
     ${make("ROBLOX","lime",videos.roblox)}
     ${make("TIKTOK","violet",videos.tiktok)}
+
     <br><br>
     <button onclick="closeVideos()">VOLVER</button>
   `;
