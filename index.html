@@ -35,7 +35,7 @@ body{
   transition:1s;
 }
 
-/* 👤 PERSONAJE */
+/* 👤 ICONO */
 #icono{
   position:absolute;
   right:0;
@@ -58,7 +58,6 @@ body{
   justify-content:center;
   align-items:center;
   gap:4vw;
-
   flex-wrap:wrap;
 
   z-index:5;
@@ -97,9 +96,15 @@ body{
   background:black;
   z-index:10;
   display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
   cursor:pointer;
+}
+
+#startScreen img{
+  width:60%;
+  max-width:400px;
 }
 
 .startText{
@@ -127,29 +132,20 @@ body{
   z-index:9999;
 }
 
-.rotateBox::before{
-  content:"📱";
-  font-size:8vh;
-  display:block;
-  animation:spin 1.5s infinite;
+/* ✨ PARTÍCULAS */
+.particle{
+  position:fixed;
+  width:4px;
+  height:4px;
+  background:white;
+  border-radius:50%;
+  animation:fall linear infinite;
+  z-index:1;
 }
 
-.rotateBox{
-  text-align:center;
-  font-family:"AnwFont";
-  animation:float 1.2s infinite;
-}
-
-@keyframes spin{
-  0%{transform:rotate(0);}
-  50%{transform:rotate(90deg);}
-  100%{transform:rotate(0);}
-}
-
-@keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-10px);}
-  100%{transform:translateY(0);}
+@keyframes fall{
+  from{transform:translateY(-10vh); opacity:1;}
+  to{transform:translateY(110vh); opacity:0;}
 }
 
 /* 🌌 SHADER */
@@ -166,18 +162,18 @@ body::before{
 }
 
 </style>
-
 </head>
 
 <body>
 
 <!-- 📱 ORIENTACIÓN -->
 <div id="rotateScreen">
-  <div class="rotateBox">GIRA TU DISPOSITIVO</div>
+  <div>GIRA TU DISPOSITIVO 📱</div>
 </div>
 
 <!-- 🎮 START -->
 <div id="startScreen">
+  <img src="start.png">
   <p class="startText">PRESIONA LA PANTALLA PARA EMPEZAR</p>
 </div>
 
@@ -195,7 +191,6 @@ body::before{
 <!-- 🔗 BOTONES -->
 <div class="botones">
 
-  <!-- 📺 BOTÓN VIDEOS -->
   <div class="videoBtn" onclick="openVideos()">📺</div>
 
   <a href="https://anwlitoc.carrd.co/" target="_blank">
@@ -223,6 +218,7 @@ body::before{
 
 /* 🎮 START */
 document.getElementById("startScreen").onclick = () => {
+
   document.getElementById("startScreen").style.display="none";
 
   document.getElementById("fondo").style.opacity="1";
@@ -230,6 +226,8 @@ document.getElementById("startScreen").onclick = () => {
   document.querySelector(".botones").style.opacity="1";
 
   document.getElementById("bgm").play().catch(()=>{});
+
+  startParticles();
 };
 
 /* 📱 ORIENTACIÓN */
@@ -240,9 +238,20 @@ function checkOrientation(){
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("load", checkOrientation);
 
+/* ✨ PARTÍCULAS */
+function startParticles(){
+  for(let i=0;i<30;i++){
+    let p = document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*100+"vw";
+    p.style.animationDuration=(2+Math.random()*4)+"s";
+    document.body.appendChild(p);
+  }
+}
+
 /* 🎬 VIDEOS */
 const videos = {
-  principal:"https://youtu.be/GlZlj9FkEw4?si=ntz8k7dHNb35eW0D",
+  principal:"https://youtu.be/GlZlj9FkEw4?si=d_XXO9nlsh_-P6bP",
   among:"https://youtube.com/shorts/M_mOYKX8VCY",
   roblox:"https://youtu.be/CnXjCfHLHCA",
   tiktok:""
@@ -252,10 +261,10 @@ function openVideos(){
 
   document.querySelector(".botones").style.display="none";
 
-  let page = document.getElementById("videosPage");
+  let page=document.getElementById("videosPage");
   page.style.display="block";
 
-  page.innerHTML = `
+  page.innerHTML=`
     <h1 style="color:cyan;">MIS VIDEOS</h1>
 
     ${make("CANAL PRINCIPAL","red",videos.principal)}
@@ -274,8 +283,8 @@ function make(title,color,url){
     return `<p style="color:${color}">${title}<br>❌ No hay vídeos en los últimos 8 meses</p>`;
   }
 
-  let id = getID(url);
-  let img = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+  let id=getID(url);
+  let img=`https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
   return `
     <div style="margin:20px;">
@@ -288,10 +297,18 @@ function make(title,color,url){
 }
 
 function getID(url){
-  let m = url.match(/v=([^&]+)/);
+
+  let m;
+
+  m=url.match(/v=([^&]+)/);
   if(m) return m[1];
-  m = url.match(/youtu\.be\/([^?]+)/);
+
+  m=url.match(/youtu\.be\/([^?]+)/);
   if(m) return m[1];
+
+  m=url.match(/shorts\/([^?]+)/);
+  if(m) return m[1];
+
   return "";
 }
 
