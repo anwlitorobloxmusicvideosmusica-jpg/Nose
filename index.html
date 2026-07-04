@@ -46,7 +46,7 @@ body{
   transition:1s;
 }
 
-/* 🔗 BOTONES */
+/* 🔗 BOTONES PRINCIPALES */
 .botones{
   position:absolute;
   top:0;
@@ -62,7 +62,6 @@ body{
   z-index:5;
 
   opacity:0;
-  transform:scale(0.9);
   transition:1s;
 }
 
@@ -70,11 +69,10 @@ body{
   height:20vh;
   cursor:pointer;
   transition:0.25s;
-  filter: drop-shadow(0 0 10px rgba(0,255,200,0.5));
 }
 
 .botones img:hover{
-  transform:scale(1.25);
+  transform:scale(1.2);
 }
 
 /* 🎮 START SCREEN */
@@ -87,13 +85,6 @@ body{
   justify-content:center;
   align-items:center;
   cursor:pointer;
-}
-
-.startBox{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:20px;
 }
 
 .startText{
@@ -110,55 +101,7 @@ body{
   100%{opacity:1;}
 }
 
-/* 🌈 SHADER */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(0,255,200,0.12), transparent 60%),
-    radial-gradient(circle at 70% 70%, rgba(255,0,150,0.08), transparent 60%);
-  animation:shaderMove 6s infinite alternate;
-  mix-blend-mode:screen;
-  pointer-events:none;
-  z-index:1;
-}
-
-@keyframes shaderMove{
-  0%{transform:scale(1);}
-  100%{transform:scale(1.1) translate(10px,-10px);}
-}
-
-/* 💥 GLITCH */
-.glitch{
-  animation:glitch 0.3s infinite;
-}
-
-@keyframes glitch{
-  0%{transform:translate(0,0);}
-  25%{transform:translate(2px,-2px);}
-  50%{transform:translate(-2px,2px);}
-  75%{transform:translate(2px,2px);}
-  100%{transform:translate(0,0);}
-}
-
-/* ✨ PARTICULAS */
-.particle{
-  position:fixed;
-  width:4px;
-  height:4px;
-  background:white;
-  border-radius:50%;
-  z-index:1;
-  animation:float 6s linear infinite;
-}
-
-@keyframes float{
-  from{transform:translateY(100vh);opacity:0;}
-  to{transform:translateY(-10vh);opacity:1;}
-}
-
-/* 📱 ORIENTACIÓN BLOQUEO */
+/* 📱 ORIENTACIÓN */
 #rotateScreen{
   position:fixed;
   inset:0;
@@ -170,102 +113,115 @@ body::before{
   z-index:9999;
 }
 
-.rotateBox{
-  text-align:center;
-  font-size:3vh;
-  animation:floatPhone 1.2s infinite;
-  font-family:"AnwFont";
-}
-
 .rotateBox::before{
   content:"📱";
   font-size:8vh;
   display:block;
-  animation:spinPhone 1.5s infinite;
+  animation:spin 1.5s infinite;
   margin-bottom:20px;
 }
 
-@keyframes spinPhone{
-  0%{transform:rotate(0deg);}
-  50%{transform:rotate(90deg);}
-  100%{transform:rotate(0deg);}
+.rotateBox{
+  text-align:center;
+  font-family:"AnwFont";
+  animation:float 1.2s infinite;
 }
 
-@keyframes floatPhone{
+@keyframes spin{
+  0%{transform:rotate(0);}
+  50%{transform:rotate(90deg);}
+  100%{transform:rotate(0);}
+}
+
+@keyframes float{
   0%{transform:translateY(0);}
   50%{transform:translateY(-10px);}
   100%{transform:translateY(0);}
 }
 
-</style>
+/* 🌌 SHADER */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0,255,200,0.12), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(255,0,150,0.08), transparent 60%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:1;
+}
 
+</style>
 </head>
 
 <body>
 
 <!-- 📱 ORIENTACIÓN -->
 <div id="rotateScreen">
-  <div class="rotateBox">
-    GIRA TU DISPOSITIVO
-  </div>
+  <div class="rotateBox">GIRA TU DISPOSITIVO</div>
+</div>
+
+<!-- 🎮 START -->
+<div id="startScreen">
+  <p class="startText">PRESIONA LA PANTALLA PARA EMPEZAR</p>
 </div>
 
 <!-- 🎵 MUSICA -->
 <audio id="bgm" loop>
-  <source src="music.mp3" type="audio/mpeg">
+  <source src="music.mp3">
 </audio>
 
-<!-- 🎮 START -->
-<div id="startScreen">
-  <div class="startBox glitch">
-    <img src="start.png">
-    <p class="startText">PRESIONA LA PANTALLA PARA EMPEZAR</p>
-  </div>
-</div>
-
 <!-- 🌅 FONDO -->
-<img src="fondo.png" id="fondo">
+<img id="fondo" src="fondo.png">
 
 <!-- 👤 PERSONAJE -->
-<img src="anwlitoicon.png" id="icono">
+<img id="icono" src="anwlitoicon.png">
 
-<!-- 🔗 BOTONES -->
+<!-- 🔗 MENÚ -->
 <div class="botones">
 
-  <a href="https://gamebanana.com/members/4193340"><img src="gamebanana2.png"></a>
-  <a href="https://anwlitoc.carrd.co/"><img src="yt2.png"></a>
-  <a href="https://www.tiktok.com/@eliot_friend_anwlito"><img src="tiktok2.png"></a>
-  <a href="https://x.com/SoyAnwlitoyt"><img src="Twitter.png"></a>
-  <a href="https://discord.gg/YBnPcpTxqF"><img src="Discord.png"></a>
+  <img src="gamebanana2.png" onclick="openVideos()">
+  <img src="yt2.png">
+  <img src="tiktok2.png">
 
 </div>
 
+<!-- 🎬 SECCIÓN VIDEOS (NETFLIX) -->
+<div id="videosPage" style="display:none;"></div>
 <script>
 
-/* 🎮 START */
-document.addEventListener("DOMContentLoaded", () => {
+/* 🎮 START SYSTEM */
+document.getElementById("startScreen").addEventListener("click", () => {
 
-  const start = document.getElementById("startScreen");
-  const music = document.getElementById("bgm");
+  document.getElementById("startScreen").style.display = "none";
 
-  start.addEventListener("click", () => {
+  document.getElementById("fondo").style.opacity = "1";
+  document.getElementById("icono").style.opacity = "1";
+  document.querySelector(".botones").style.opacity = "1";
 
-    start.style.display = "none";
+  document.getElementById("bgm").play().catch(()=>{});
 
-    music.play().catch(()=>{});
-
-    document.getElementById("fondo").style.opacity = "1";
-    document.getElementById("icono").style.opacity = "1";
-    document.querySelector(".botones").style.opacity = "1";
-
-    startParticles();
-  });
-
+  startParticles();
 });
 
-/* ✨ PARTICULAS */
+/* 📱 ORIENTACIÓN */
+function checkOrientation(){
+  const r = document.getElementById("rotateScreen");
+
+  if(window.innerHeight > window.innerWidth){
+    r.style.display = "flex";
+  }else{
+    r.style.display = "none";
+  }
+}
+
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("load", checkOrientation);
+
+/* ✨ PARTÍCULAS */
 function startParticles(){
-  for(let i=0;i<25;i++){
+  for(let i=0;i<20;i++){
     let p = document.createElement("div");
     p.className = "particle";
     p.style.left = Math.random()*100 + "vw";
@@ -274,19 +230,79 @@ function startParticles(){
   }
 }
 
-/* 📱 ORIENTACIÓN */
-function checkOrientation(){
-  const r = document.getElementById("rotateScreen");
+/* 🎬 SISTEMA NETFLIX DE VIDEOS */
+const videos = {
+  principal: "",
+  among: "",
+  roblox: "",
+  tiktok: ""
+};
 
-  if(window.innerHeight > window.innerWidth){
-    r.style.display = "flex";
-  } else {
-    r.style.display = "none";
-  }
+/* 🔥 ABRIR PÁGINA VIDEOS */
+function openVideos(){
+  document.querySelector(".botones").style.display = "none";
+
+  let page = document.getElementById("videosPage");
+  page.style.display = "block";
+
+  page.innerHTML = `
+    <div style="color:white;text-align:center;padding:20px;font-family:Arial">
+
+      <h1 style="color:cyan;">MIS VIDEOS</h1>
+
+      ${createVideo("CANAL PRINCIPAL", videos.principal, "red")}
+      ${createVideo("CANAL AMONG US", videos.among, "yellow")}
+      ${createVideo("ROBLOX", videos.roblox, "lime")}
+      ${createVideo("TIKTOK", videos.tiktok, "violet")}
+
+      <br><br>
+      <button onclick="closeVideos()" style="padding:10px 20px;font-size:18px;">
+        VOLVER
+      </button>
+
+    </div>
+  `;
 }
 
-window.addEventListener("resize", checkOrientation);
-window.addEventListener("load", checkOrientation);
+/* 🎬 CREAR BLOQUE DE VIDEO */
+function createVideo(title, url, color){
+
+  if(!url){
+    return `<p style="color:${color};font-size:18px;">
+      ${title}: <br>
+      ❌ No hay vídeos en los últimos 8 meses
+    </p><br>`;
+  }
+
+  const id = getYouTubeID(url);
+  const thumb = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+
+  return `
+    <div style="margin:20px;">
+      <h2 style="color:${color}">${title}</h2>
+      <a href="${url}" target="_blank">
+        <img src="${thumb}" style="width:60%;border-radius:10px;">
+      </a>
+    </div>
+  `;
+}
+
+/* 🔗 SACAR ID DE YOUTUBE */
+function getYouTubeID(url){
+  let match = url.match(/v=([^&]+)/);
+  if(match) return match[1];
+
+  match = url.match(/youtu\.be\/([^?]+)/);
+  if(match) return match[1];
+
+  return "";
+}
+
+/* 🔙 CERRAR */
+function closeVideos(){
+  document.getElementById("videosPage").style.display = "none";
+  document.querySelector(".botones").style.display = "flex";
+}
 
 </script>
 
